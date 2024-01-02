@@ -1,0 +1,9 @@
+<div class="sidebar">
+  <p>Popular Tags</p>
+
+  <div class="tag-list">
+    <span (click)="filterByTag(tag)" class="tag-pill tag-default" *ngFor="let tag of tags()">{{ tag }}</span>
+
+
+  </div>
+</div>

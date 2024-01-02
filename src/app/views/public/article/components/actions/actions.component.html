@@ -1,0 +1,36 @@
+<div class="article-meta">
+  <a [href]="'/profile/' + article()?.author?.username">
+    <img [src]="article()?.author?.image"/>
+  </a>
+  <div class="info">
+    <a [href]="'/profile/' + article()?.author?.username" class="author">{{ article()?.author?.username}}</a>
+    <span class="date">{{ article()?.createdAt | date: 'dd/MM/YYYY'}}</span>
+  </div>
+  <button (click)="following(article()?.author?.username)" class="btn btn-sm btn-outline-secondary"
+          *ngIf="!article()?.author?.following">
+    <i class="ion-plus-round"></i>
+    &nbsp; Follow {{ article()?.author?.username}}
+  </button>
+  <button (click)="unFollowing(article()?.author?.username)" class="btn btn-sm btn-outline-secondary"
+          *ngIf="article()?.author?.following">
+    <i class="ion-plus-round"></i>
+    &nbsp; Unfollow {{ article()?.author?.username}}
+  </button>
+  &nbsp;&nbsp;
+  <button (click)="addToFavorite(article()?.slug)" class="btn btn-sm btn-outline-primary"
+          *ngIf="!article()?.favorited">
+    <i class="ion-heart"></i>
+    &nbsp; Favorite Post <span class="counter">({{ article()?.favoritesCount}})</span>
+  </button>
+  <button (click)="addToFavorite(article()?.slug)" class="btn btn-sm btn-outline-primary"
+          *ngIf="article()?.favorited">
+    <i class="ion-heart"></i>
+    &nbsp; Unfavorite Post <span class="counter">({{ article()?.favoritesCount}})</span>
+  </button>
+  <a [routerLink]="'/editor/'+ article()?.slug" class="btn btn-sm btn-outline-secondary" *ngIf="article()?.author?.username === user()?.username">
+    <i class="ion-edit"></i> Edit Article
+  </a>
+  <button (click)="deleteArticle()" class="btn btn-sm btn-outline-danger" *ngIf="article()?.author?.username === user()?.username">
+    <i class="ion-trash-a"></i> Delete Article
+  </button>
+</div>

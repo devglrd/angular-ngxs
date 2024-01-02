@@ -1,0 +1,37 @@
+<ng-container *ngIf="!loading()">
+
+  <div class="card" *ngFor="let comment of comments();">
+    <div class="card-block">
+      <p class="card-text" [innerHTML]="comment.body | innerHTML">
+      </p>
+    </div>
+    <div class="card-footer">
+      <div class="">
+        <a href="/profile/author" class="comment-author">
+          <img [src]="comment.author.image" class="comment-author-img"/>
+        </a>
+        &nbsp;
+        <a href="/profile/jacob-schmidt" class="comment-author">{{ comment.author.username}}</a>
+        <span class="date-posted">{{ comment.createdAt | date: 'dd/MM/YYYY'}}</span>
+      </div>
+      <button (click)="delete(comment.id)" class="btn btn-sm btn-primary">Delete Comment</button>
+
+    </div>
+  </div>
+</ng-container>
+
+<ng-container *ngIf="!comments().length && !loading()">
+  <div class="center">
+    <p class="tui-island__category">No comment</p>
+  </div>
+</ng-container>
+
+<div class="card comment-form" *ngIf="!!user()">
+  <div class="card-block">
+    <textarea class="form-control" [(ngModel)]="inputCommentaire" placeholder="Write a comment..." rows="3"></textarea>
+  </div>
+  <div class="card-footer">
+    <img [src]="user()?.image" class="comment-author-img"/>
+    <button (click)="submit()" class="btn btn-sm btn-primary">Post Comment</button>
+  </div>
+</div>

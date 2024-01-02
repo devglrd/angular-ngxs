@@ -1,0 +1,31 @@
+<div class="home-page">
+
+  <app-banner/>
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-9">
+        <div class="feed-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" routerLink="/feed">Your Feed</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" routerLink="/" [routerLinkActiveOptions]="{exact: true}">Global
+                Feed</a>
+            </li>
+          </ul>
+        </div>
+
+        <app-articles *ngIf="!loading()"
+                      [articles]="articles()"></app-articles>
+
+        <app-pagination/>
+      </div>
+
+      <div class="col-md-3">
+        <app-tags/>
+      </div>
+
+    </div>
+  </div>
+</div>

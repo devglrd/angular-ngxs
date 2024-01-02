@@ -1,0 +1,30 @@
+<div>
+  <div class="article-preview" *ngFor="let article of values()">
+    <div class="article-meta">
+      <a [routerLink]="'/profile/' + article?.author?.username">
+        <img [src]="article?.author?.image"/>
+      </a>
+      <div class="info">
+        <a [routerLink]="'/profile/' + article?.author?.username" class="author">{{ article?.author?.username}}</a>
+        <span class="date">{{ article?.createdAt | date: 'dd/MM/YYYY'}}</span>
+      </div>
+      <button (click)="favorite(article?.slug)" class="btn btn-outline-primary btn-sm pull-xs-right" [class.active]="article?.favorited">
+        <i class="ion-heart"></i> {{ article?.favoritesCount}}
+      </button>
+    </div>
+    <a [routerLink]="'/article/' + article?.slug" class="preview-link">
+      <h1>{{ article?.title}}</h1>
+      <p>{{ article.description}}</p>
+      <span>Read more...</span>
+      <ul class="tag-list">
+        <li class="tag-default tag-pill tag-outline" *ngFor="let tag of article.tags">{{ tag}}</li>
+      </ul>
+    </a>
+  </div>
+
+
+  <ng-container *ngIf="!values().length">
+    <span>Aucun article</span>
+  </ng-container>
+
+</div>

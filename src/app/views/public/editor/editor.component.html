@@ -1,0 +1,44 @@
+<div class="editor-page">
+  <div class="container page">
+    <div class="row">
+      <div class="col-md-10 offset-md-1 col-xs-12">
+        <!--        <ul class="error-messages">-->
+        <!--          <li>That title is required</li>-->
+        <!--        </ul>-->
+
+        <form [formGroup]="form" (ngSubmit)="submit()">
+          <fieldset>
+            <fieldset class="form-group">
+              <input formControlName="title" type="text" class="form-control form-control-lg"
+                     placeholder="Article Title"/>
+            </fieldset>
+            <fieldset class="form-group">
+              <input formControlName="description" type="text" class="form-control"
+                     placeholder="What's this article about?"/>
+            </fieldset>
+            <fieldset class="form-group">
+              <textarea
+                class="form-control"
+                formControlName="body"
+                rows="8"
+                placeholder="Write your article (in markdown)"
+              ></textarea>
+            </fieldset>
+            <fieldset class="form-group">
+              <input type="text" formControlName="tagsInput" (keyup.enter)="addTags($event)" class="form-control"
+                     placeholder="Enter tags"/>
+              <div class="tag-list">
+                <span class="tag-default tag-pill cursor" *ngFor="let tag of form.value.tags" (click)="removeTag(tag)">
+                  {{ tag }}
+                </span>
+              </div>
+            </fieldset>
+            <button class="btn btn-lg pull-xs-right btn-primary" type="submit">
+              {{ slug ? 'Edit Article' : 'Publish Article' }}
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

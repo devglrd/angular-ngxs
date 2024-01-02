@@ -1,0 +1,56 @@
+<div class="profile-page">
+  <div class="user-info">
+    <div class="container">
+      <div class="row">
+        <div class="col-xs-12 col-md-10 offset-md-1">
+          <img [src]="profile().image" class="user-img"/>
+          <h4>{{ profile().username}}</h4>
+          <p>
+            {{ profile().bio}}
+          </p>
+          <ng-container *ngIf="profile()?.username !== user()?.username">
+            <button (click)="follow(profile().username)" class="btn btn-sm btn-outline-secondary action-btn"
+                    *ngIf="!profile().following">
+              <i class="ion-plus-round"></i>
+              &nbsp; Follow {{ profile().username}}
+            </button>
+            <button (click)="unfollow(profile().username)" class="btn btn-sm btn-outline-secondary action-btn"
+                    *ngIf="profile().following">
+              <i class="ion-plus-round"></i>
+              &nbsp; Un follow {{ profile().username}}
+            </button>
+          </ng-container>
+          <a routerLink="/settings" class="btn btn-sm btn-outline-secondary action-btn"
+             *ngIf="user()?.username === profile()?.username">
+            <i class="ion-gear-a"></i>
+            &nbsp; Edit Profile Settings
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 col-md-10 offset-md-1">
+        <div class="articles-toggle">
+          <ul class="nav nav-pills outline-active">
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="./"
+                 [queryParamsHandling]="">My Articles</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" routerLink="./"
+                 [queryParams]="{favorited: true}">Favorited Articles</a>
+            </li>
+          </ul>
+        </div>
+
+
+        <app-articles [articles]="articles()"/>
+
+        <app-pagination *ngIf="articles().length"/>
+      </div>
+    </div>
+  </div>
+</div>

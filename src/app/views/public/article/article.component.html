@@ -1,0 +1,32 @@
+<div class="article-page" *ngIf="!loading()">
+  <div class="banner">
+    <div class="container">
+      <h1>{{ article()?.title }}</h1>
+
+      <app-actions [slug]="slug"/>
+    </div>
+  </div>
+
+  <div class="container page">
+    <div class="row article-content">
+      <div class="col-md-12">
+        <p [innerHTML]="article().body | innerHTML"></p>
+        <ul class="tag-list">
+          <li class="tag-default tag-pill tag-outline" *ngFor="let tag of article().tagList">{{ tag }}</li>
+        </ul>
+      </div>
+    </div>
+
+    <hr/>
+
+    <div class="article-actions">
+      <app-actions [slug]="slug"/>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-12 col-md-8 offset-md-2">
+        <app-comments [slug]="slug" />
+      </div>
+    </div>
+  </div>
+</div>

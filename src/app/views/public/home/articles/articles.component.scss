@@ -1,0 +1,10 @@
+.grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap:20px;
+  padding: 20px 0px;
+  @media screen and (max-width: 992px) {
+    grid-template-columns: 1fr;
+    padding: 20px;
+  }
+}
