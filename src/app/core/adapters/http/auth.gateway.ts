@@ -1,9 +1,9 @@
-import {AuthGateway} from "../ports/auth.gateway";
 import {LoginUser, RegisterUser, UpdateUserPayload, User} from "@models/user.model";
 import {catchError, map, Observable, of} from "rxjs";
 import {inject} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {environment} from "../../../environments/environment";
+import {AuthGateway} from "../../ports/auth.gateway";
+import {environment} from "../../../../environments/environment";
 
 export class HttpAuthGateway implements AuthGateway {
   http = inject(HttpClient)

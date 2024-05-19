@@ -2,7 +2,7 @@
   <div class="article-preview" *ngFor="let article of values()">
     <div class="article-meta">
       <a [routerLink]="'/profile/' + article?.author?.username">
-        <img [src]="article?.author?.image"/>
+        <img [style.viewTransitionName]="article?.author?.id + '-image'" [src]="article?.author?.image"/>
       </a>
       <div class="info">
         <a [routerLink]="'/profile/' + article?.author?.username" class="author">{{ article?.author?.username}}</a>

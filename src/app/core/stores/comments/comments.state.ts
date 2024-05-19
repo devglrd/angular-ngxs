@@ -4,6 +4,7 @@ import {ArticleComment} from "@models/article.model";
 import {tap} from "rxjs";
 import {ArticlesGateway} from "../../ports/articles.gateway";
 import {AddComment, CommentsGet, DeleteComment, GetComments} from "./comments.actions";
+import {CommentsGateway} from "../../ports/comments.gateway";
 
 export class CommentsStateModel {
   public comments: ArticleComment[];
@@ -21,7 +22,7 @@ const defaults = {
 })
 @Injectable()
 export class CommentsState {
-  articlesGateway = inject(ArticlesGateway)
+  commentsGateway = inject(CommentsGateway)
 
   @Action(GetComments)
   getComments(
@@ -31,7 +32,7 @@ export class CommentsState {
     ctx.patchState({
       loadingComments: true
     })
-    return this.articlesGateway.retrieveComments(slug).pipe(
+    return this.commentsGateway.retrieveComments(slug).pipe(
       tap(
         comments => ctx.dispatch(new CommentsGet(comments))
       )
@@ -54,7 +55,7 @@ export class CommentsState {
     ctx: StateContext<CommentsStateModel>,
     {payload}: AddComment
   ) {
-    return this.articlesGateway.addComment(payload.slug, payload.data).pipe(
+    return this.commentsGateway.addComment(payload.slug, payload.data).pipe(
       tap(
         (comment) => ctx.patchState({
           comments: [...ctx.getState().comments, comment]
@@ -68,7 +69,7 @@ export class CommentsState {
     ctx: StateContext<CommentsStateModel>,
     {payload}: DeleteComment
   ) {
-    return this.articlesGateway.deleteComment(payload.slug, payload.id).pipe(
+    return this.commentsGateway.deleteComment(payload.slug, payload.id).pipe(
       tap(
         (comment) => ctx.patchState({
           comments: ctx.getState().comments.filter((comment) => comment.id !== payload.id)

@@ -12,6 +12,7 @@ import {
 } from "./profile.actions";
 import {combineLatest, merge, of, tap} from "rxjs";
 import {GetArticle} from "../articles/articles.actions";
+import {ProfileGateway} from "../../ports/profile.gateway";
 
 export class ProfileStateModel {
   public profile: Profile;
@@ -29,11 +30,12 @@ const defaults = {
 })
 @Injectable()
 export class ProfileState {
+  profileGateway = inject(ProfileGateway)
   articlesGateway = inject(ArticlesGateway)
 
   @Action(RetrieveProfile)
   RetrieveProfile({dispatch}: StateContext<ProfileStateModel>, {username}: RetrieveProfile) {
-    return combineLatest([this.articlesGateway.retrieveProfile(username), this.articlesGateway.retrieveArticles({author: username})])
+    return combineLatest([this.profileGateway.retrieveProfile(username), this.articlesGateway.retrieveArticles({author: username})])
       .pipe(
         tap(
           ([profile, articles]) => dispatch(new ProfileRetrieved(profile, articles))
@@ -69,7 +71,7 @@ export class ProfileState {
 
   @Action(FollowProfile)
   followProfile({patchState, dispatch}: StateContext<ProfileStateModel>, {username, slug}: FollowProfile) {
-    return this.articlesGateway.followProfile(username).pipe(
+    return this.profileGateway.followProfile(username).pipe(
       tap(() => !!slug ? dispatch(new GetArticle(slug)) : of(null))
     )
   }
@@ -77,7 +79,7 @@ export class ProfileState {
   @Action(UnFollowProfile)
   unFollowProfile({patchState, dispatch}: StateContext<ProfileStateModel>, {username, slug}: UnFollowProfile) {
     console.log(`unFollowProfile`);
-    return this.articlesGateway.unFollowProfile(username).pipe(
+    return this.profileGateway.unFollowProfile(username).pipe(
       tap(() => !!slug ? dispatch(new GetArticle(slug)) : of(null))
     )
   }

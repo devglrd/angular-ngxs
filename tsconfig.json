@@ -30,6 +30,7 @@
     ],
     "paths": {
       "@models/*": ["./src/app/core/models/*"],
+      "@environments": ["./src/environments"],
     }
   },
   "angularCompilerOptions": {

@@ -1,6 +1,6 @@
 <div class="article-meta">
   <a [href]="'/profile/' + article()?.author?.username">
-    <img [src]="article()?.author?.image"/>
+    <img [style.viewTransitionName]="article()?.author?.id + '-image'" [src]="article()?.author?.image"/>
   </a>
   <div class="info">
     <a [href]="'/profile/' + article()?.author?.username" class="author">{{ article()?.author?.username}}</a>

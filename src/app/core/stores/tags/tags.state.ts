@@ -1,8 +1,8 @@
 import {inject, Injectable} from '@angular/core';
 import {State, Action, StateContext} from '@ngxs/store';
 import {RetrieveTags, TagsRetrieved} from './tags.actions';
-import {ArticlesGateway} from "../../ports/articles.gateway";
 import {tap} from "rxjs";
+import {TagsGateway} from "../../ports/tags.gateway";
 
 export class TagsStateModel {
   public tags: string[];
@@ -18,7 +18,7 @@ const defaults = {
 })
 @Injectable()
 export class TagsState {
-  articleGateway = inject(ArticlesGateway)
+  articleGateway = inject(TagsGateway)
 
   @Action(RetrieveTags)
   RetrieveTags({dispatch}: StateContext<TagsStateModel>) {
